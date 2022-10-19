@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="Magicka:jar">
+    <output-path>$PROJECT_DIR$/TestServer/plugins</output-path>
+    <root id="archive" name="Magicka.jar">
+      <element id="module-output" name="Magicka" />
+    </root>
+  </artifact>
+</component>
