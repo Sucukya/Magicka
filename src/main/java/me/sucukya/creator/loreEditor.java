@@ -87,7 +87,7 @@ public class loreEditor implements Listener {
         p.openInventory(inv);
     }
 
-    public static void openConfirnm(Player p) {
+    public static void openConfirm(Player p) {
         Inventory inv = Bukkit.createInventory(null,27,"§c§lReally delete entire Lore? - Menu");
         for(int i = 0; i < 27; i++) {
             inv.setItem(i,Items.createItemStack(Material.BLACK_STAINED_GLASS_PANE,1,0," "));
@@ -166,7 +166,7 @@ public class loreEditor implements Listener {
                     }
                     if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§c§lDelete the entire Lore")) {
                         e.setCancelled(true);
-                        openConfirnm(p);
+                        openConfirm(p);
                     }
                 }
             }
@@ -213,36 +213,47 @@ public class loreEditor implements Listener {
         if(loreListNew.contains(p)) {
             loreListNew.remove(p);
             String loreLine = e.getMessage().replace("&","§");
-            lore.add(loreLine);
-            setPlayerStats.setList(p,"lore",lore,"create");
-            e.setCancelled(true);
-            reopenOverviewMenu(p);
+            if(loreLine.equalsIgnoreCase("cancel")) {
+                e.setCancelled(true);
+                reopenOverviewMenu(p);
+            } else {
+                lore.add(loreLine);
+                setPlayerStats.setList(p, "lore", lore, "create");
+                e.setCancelled(true);
+                reopenOverviewMenu(p);
+            }
         }
 
         if(editLore.contains(p)) {
             List<String> newlore = new ArrayList<>();
-            String newline = e.getMessage();
+            String newline = e.getMessage().replace("&", "§");
             NBTItem nbti = new NBTItem(p.getInventory().getItem(8));
             int line = editingLine.get(p);
-            NBTCompound nbticreate = nbti.getCompound("create");
-            NBTCompound nbtilore = nbticreate.getCompound("lore");
-            for(int i = 0; i < lore.size(); i++) {
-                nbtilore.removeKey(String.valueOf(i));
-            }
-            for (int i = 0; i < lore.size(); i++) {
-                if (i == line) {
-                    newlore.add(newline);
-                } else {
-                    newlore.add(lore.get(i));
+            if (newline.equalsIgnoreCase("cancel")) {
+                editLore.remove(p);
+                e.setCancelled(true);
+                reopenLoreEditor(p, (line + 1));
+            } else {
+                NBTCompound nbticreate = nbti.getCompound("create");
+                NBTCompound nbtilore = nbticreate.getCompound("lore");
+                for (int i = 0; i < lore.size(); i++) {
+                    nbtilore.removeKey(String.valueOf(i));
                 }
+                for (int i = 0; i < lore.size(); i++) {
+                    if (i == line) {
+                        newlore.add(newline);
+                    } else {
+                        newlore.add(lore.get(i));
+                    }
+                }
+                ItemStack menu = nbti.getItem();
+                p.getInventory().setItem(8, menu);
+                setPlayerStats.setList(p, "lore", newlore, "create");
+                e.setCancelled(true);
+                editLore.remove(p);
+                editingLine.remove(p);
+                reopenLoreEditor(p, line + 1);
             }
-            ItemStack menu = nbti.getItem();
-            p.getInventory().setItem(8,menu);
-            setPlayerStats.setList(p,"lore",newlore,"create");
-            e.setCancelled(true);
-            editLore.remove(p);
-            editingLine.remove(p);
-            reopenLoreEditor(p,line + 1);
         }
     }
 }

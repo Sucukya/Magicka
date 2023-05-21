@@ -1,10 +1,8 @@
 package me.sucukya;
 
-import me.sucukya.abilities.Abilities;
+import me.sucukya.abilities.*;
 import me.sucukya.commands.*;
-import me.sucukya.creator.abilityEditor;
-import me.sucukya.creator.createMenu;
-import me.sucukya.creator.loreEditor;
+import me.sucukya.creator.*;
 import me.sucukya.listeners.*;
 import me.sucukya.player.ActionBarSend;
 import me.sucukya.player.ManaRegen;
@@ -37,6 +35,9 @@ public class Magicka extends JavaPlugin {
         pm.registerEvents(new cheatMenu(), this);
         pm.registerEvents(new loreEditor(), this);
         pm.registerEvents(new abilityEditor(), this);
+        pm.registerEvents(new abilityCreator(), this);
+        pm.registerEvents(new editAction(), this);
+        pm.registerEvents(new editValuesMenus(), this);
 
         getCommand("gm").setExecutor(new gm());
         getCommand("safeclear").setExecutor(new safeClear());

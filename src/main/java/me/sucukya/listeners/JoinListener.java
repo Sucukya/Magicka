@@ -18,6 +18,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class JoinListener implements Listener {
@@ -42,6 +43,9 @@ public class JoinListener implements Listener {
                 NBTCompound nbticreate = nbti.addCompound("create");
                 NBTCompound nbtibase = nbti.addCompound("base");
                 NBTCompound nbtilore = nbticreate.addCompound("lore");
+                NBTCompound nbtiability = nbticreate.addCompound("ability");
+                NBTCompound nbtiabilityFunctionComp = nbticreate.addCompound("abilityFunction");
+                NBTCompound nbtiabilityFunctionExample = nbtiabilityFunctionComp.addCompound("1");
                 nbtistats.setDouble("mana", 100.0);
                 nbtistats.setDouble("maxmana", 100.0);
                 nbtibase.setDouble("mana", 100.0);
@@ -49,10 +53,11 @@ public class JoinListener implements Listener {
                 nbticheats.setBoolean("infinitemana" , false);
                 nbticreate.setString("name","null");
                 nbticreate.setString("material","null");
-                nbticreate.setString("manacost","null");
-                nbticreate.setString("abilitycooldown","null");
-                nbticreate.setString("abilityname","null");
-                nbticreate.setString("abilitytype","null");
+                nbtiability.setString("manacost","null");
+                nbtiability.setString("cooldown","null");
+                nbtiability.setString("name","null");
+                nbtiabilityFunctionExample.setString("type","teleport");
+                nbtiabilityFunctionExample.setDouble("range", 8.0);
                 List<String> lore = new ArrayList<>();
                 lore.add("§a Example line 1");
                 lore.add("§a Example line 2");
