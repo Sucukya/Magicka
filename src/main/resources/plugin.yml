@@ -1,0 +1,47 @@
+name: Magicka
+version: 1.0
+author: Sucukya
+main: me.sucukya.Magicka
+api-version: '1.20'
+commands:
+  gm:
+    description: Better /gamemode command
+    usage: /gm <1,2,3,0 or c,a,sp,s> [player]
+    permission: magicka.gm
+  safeclear:
+    description: Clear Inventory without removing Menu Item
+    usage: /safeclear
+    permission: magicka.safeclear
+    aliases: sf
+  reset:
+    description: Reset a player
+    usage: /reset <player>
+    permission: magicka.reset
+  test:
+    description: Just a development test command
+    usage: /test
+    permission: magicka.test
+  testitem:
+    description: Spawns in a test item!
+    usage: /testitem
+    permission: magicka.testitem
+  infinitemana:
+    description: Grants you infinite Mana
+    usage: /infinitemana
+    permission: magicka.infinitemana
+  create:
+    description: Opens the Item Creation Menu
+    usage: /create
+    permission: magicka.create
+  edit:
+    description: Loads the Item you are holding into the Creation Menu
+    usage: /edit
+    permission: magicka.create
+  clearchat:
+    description: Clears your own chat
+    usage: /clearchat
+    aliases: cc
+  getNbt:
+    description: Shows the Nbt Data of the Item you are holding
+    usage: /getNbt
+    aliases: nbt
